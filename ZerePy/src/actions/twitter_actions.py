@@ -5,6 +5,7 @@ from src.prompts import REPLY_TWEET_PROMPT
 import requests
 import os
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -121,6 +122,7 @@ def get_mentioned_tweets(agent, **kwargs):
     tweets = agent.connection_manager.perform_action(
         connection_name="twitter",
         action_name="get-mentioned-tweets",
+        params=[]
     )
 
     selected_tweets = []
@@ -128,6 +130,8 @@ def get_mentioned_tweets(agent, **kwargs):
     for tweet in tweets:
         tweet_id = tweet.get('id')
         tweet_text = tweet.get('text')
+        agent.logger.info(f"Processing tweet: {tweet.get('text')}")
+
         tweet_author = tweet.get('author_id')
         tweet_username = tweet.get('username')
         if agent.connection_manager.perform_action(
@@ -150,7 +154,6 @@ def deploy_token(agent, **kwargs):
     agent.logger.info("\n📝 Deploying token")
     print_h_bar()
     url = f"{DEPLOY_TOKEN_URL}api/memecoin/create-for-user"
-
     tweets = get_mentioned_tweets(agent, **kwargs)
 
     responses = []
@@ -161,6 +164,24 @@ def deploy_token(agent, **kwargs):
             "input": tweet.get('text'),
         }
         response = requests.post(url, data=data)
-        responses.append(response.json())
-    agent.logger.info("\n✅ Deploy token successfully!")
-    return responses
+        agent.logger.info("\n✅ Deploy token successfully!")
+
+        # Generate natural language reponse given the json data
+        llm_tweet = agent.prompt_llm(prompt="Generate a tweet given the response under 40 words", system_prompt=json.dumps(response))
+        agent.logger.info(f"\n📝 Generated response: {llm_tweet}")
+        responses.append({
+            "tweet_id": tweet.get('tweet_id'),
+            "response": llm_tweet
+        })
+
+    # json response -> reply to tweet
+    for response in responses:
+        tweet_id = response['tweet_id']
+        reply_text = response['response']
+        agent.connection_manager.perform_action(
+            connection_name="twitter",
+            action_name="reply-to-tweet",
+            params=[tweet_id, reply_text]
+        )
+        agent.logger.info(f"\n🚀 Posting reply: '{reply_text}'")
+    return
