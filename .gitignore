@@ -1,6 +1,7 @@
 .idea
 .env
 /env/*
+**/.env
 /app/audio/*
 /app/logs/*
 !.gitkeep
