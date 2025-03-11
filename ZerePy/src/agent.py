@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Optional, Any
 import src.actions.twitter_actions
 import src.actions.supabase_actions
+import src.actions.discord_actions
 from src.action_handler import execute_action
 from src.connection_manager import ConnectionManager
 from src.helpers import print_h_bar
@@ -151,6 +152,9 @@ class ZerePyAgent:
                 success = False
                 if self.name == "DeployTokenAgent":
                     execute_action(self, "deploy-token")
+                    success = True
+                elif self.name == "DeployTokenDiscordAgent":
+                    execute_action(self, "deploy-token-discord")
                     success = True
                 else:
                     try:
