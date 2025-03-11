@@ -163,11 +163,11 @@ def deploy_token(agent, **kwargs):
             "twitterHandle": tweet.get('username'),
             "input": tweet.get('text'),
         }
-        response = requests.post(url, data=data)
+        response = requests.post(url, json=data)
         agent.logger.info("\n✅ Deploy token successfully!")
 
         # Generate natural language reponse given the json data
-        llm_tweet = agent.prompt_llm(prompt="Generate a tweet given the response under 40 words", system_prompt=json.dumps(response))
+        llm_tweet = agent.prompt_llm(prompt="Generate a tweet given the response under 40 words", system_prompt=json.dumps(response.json()))
         agent.logger.info(f"\n📝 Generated response: {llm_tweet}")
         responses.append({
             "tweet_id": tweet.get('tweet_id'),
