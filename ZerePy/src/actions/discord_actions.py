@@ -204,14 +204,25 @@ def rug_detect(agent, **kwargs):
     for message in messages:
         agent.logger.info(message)
         if "check anti-rug" in message.get('message'):
-            llm_analysis = agent.prompt_llm(prompt=USER_PROMPT.format(data), system_prompt=SYSTEM_PROMPT)
-
+            agent.logger.info(USER_PROMPT.format(data=json.dumps(data, indent=2)))
+            llm_analysis = agent.prompt_llm(prompt=USER_PROMPT.format(data=json.dumps(data, indent=2)), system_prompt=SYSTEM_PROMPT)
             agent.logger.info(f"\n📝 Generated response: {llm_analysis}")
-            responses.append({
-                "message_id": message.get("id"),
-                "channel_id": message.get('channel_id'),
-                "response": llm_analysis
-            })
+            agent.logger.info(len(llm_analysis))
+
+            if len(llm_analysis) > 2000:
+                llm_summary = agent.prompt_llm(prompt=llm_analysis,
+                                                system_prompt="summary response under 300 words")
+                responses.append({
+                    "message_id": message.get("id"),
+                    "channel_id": message.get('channel_id'),
+                    "response": llm_summary
+                })
+            else:
+                responses.append({
+                    "message_id": message.get("id"),
+                    "channel_id": message.get('channel_id'),
+                    "response": llm_analysis
+                })
 
     # json response -> reply to tweet
     for response in responses:

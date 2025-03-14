@@ -156,6 +156,9 @@ class ZerePyAgent:
                 elif self.name == "DeployTokenDiscordAgent":
                     execute_action(self, "deploy-token-discord")
                     success = True
+                elif self.name == "AntiRugAgent":
+                    execute_action(self, "rug-detect")
+                    success = True
                 else:
                     try:
                         n_calls, n_badcalls = 0, 0
@@ -199,13 +202,13 @@ class ZerePyAgent:
                         logger.info(
                             f"\n⏳ Waiting {self.loop_delay} seconds before next loop...")
                         print_h_bar()
-                        time.sleep(self.loop_delay if success else 60)
     
                     except Exception as e:
                         logger.error(f"\n❌ Error in agent loop iteration: {e}")
                         logger.info(
                             f"⏳ Waiting {self.loop_delay} seconds before retrying...")
                         time.sleep(self.loop_delay)
+                time.sleep(self.loop_delay if success else 60)
         except KeyboardInterrupt:
             logger.info("\n🛑 Agent loop stopped by user.")
             return
