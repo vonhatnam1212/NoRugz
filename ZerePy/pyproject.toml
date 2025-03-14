@@ -31,6 +31,7 @@ fastapi = { version = "^0.109.0", optional = true }
 uvicorn = { version = "^0.27.0", optional = true }
 supabase = "<2.13"
 shortuuid = "^1.0.13"
+moralis = "^0.1.49"
 
 [tool.poetry.extras]
 server = ["fastapi", "uvicorn", "requests"]
