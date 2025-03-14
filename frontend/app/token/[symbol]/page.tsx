@@ -576,30 +576,6 @@ export default function TokenDetailPage() {
                       {token?.description ||
                         "No description available for this token."}
                     </p>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                      <div className="bg-black/20 p-4 rounded-lg">
-                        <h3 className="text-sm font-medium mb-2">
-                          Token Utility
-                        </h3>
-                        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                          <li>Governance voting rights</li>
-                          <li>Platform fee discounts</li>
-                          <li>Access to premium features</li>
-                          <li>Staking rewards</li>
-                        </ul>
-                      </div>
-
-                      <div className="bg-black/20 p-4 rounded-lg">
-                        <h3 className="text-sm font-medium mb-2">Tokenomics</h3>
-                        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                          <li>Total Supply: 1,000,000,000</li>
-                          <li>Circulating Supply: 250,000,000</li>
-                          <li>Initial Distribution: 25%</li>
-                          <li>Team Allocation: 15% (locked)</li>
-                        </ul>
-                      </div>
-                    </div>
                   </div>
                 </CardContent>
               </Card>
