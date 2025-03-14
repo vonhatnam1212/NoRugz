@@ -35,51 +35,6 @@ export function MarketFilters({
   return (
     <div className="flex items-center justify-between w-full">
       <div className="flex items-center gap-2">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="w-[130px]">
-              <div className="flex items-center gap-2">
-                {selectedChain ? (
-                  <>
-                    <Image
-                      src={selectedChain.logo || "/placeholder.svg"}
-                      alt={selectedChain.name}
-                      width={20}
-                      height={20}
-                      className="rounded-full"
-                    />
-                    {selectedChain.name}
-                  </>
-                ) : (
-                  "Chains"
-                )}
-                <ChevronDown className="ml-auto h-4 w-4" />
-              </div>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-[200px]">
-            <DropdownMenuItem onClick={() => onChainSelect(null)}>
-              <span className="font-medium">All Chains</span>
-            </DropdownMenuItem>
-            {chains.map((chain) => (
-              <DropdownMenuItem
-                key={chain.id}
-                onClick={() => onChainSelect(chain)}
-              >
-                <div className="flex items-center gap-2">
-                  <Image
-                    src={chain.logo || "/placeholder.svg"}
-                    alt={chain.name}
-                    width={20}
-                    height={20}
-                    className="rounded-full"
-                  />
-                  <span className="font-medium">{chain.name}</span>
-                </div>
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
         <div className="flex items-center gap-2">
           {filterOptions.map((filter) => (
             <Button

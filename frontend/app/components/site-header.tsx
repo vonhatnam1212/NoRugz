@@ -128,7 +128,7 @@ const MatrixConnectButton = () => {
       onMouseDown={() => setButtonPressed(true)}
       onMouseUp={() => setButtonPressed(false)}
       className={`
-        font-pixel text-xs px-4 py-2 relative
+        font-pixel text-xs px-4 py-2 relative rounded-md
         ${
           buttonPressed
             ? "translate-y-[2px] shadow-none"
@@ -136,35 +136,22 @@ const MatrixConnectButton = () => {
         }
         ${
           buttonHovered
-            ? "bg-retro-green text-black border-2 border-black"
-            : "bg-black text-retro-green border-2 border-retro-green"
+            ? "bg-black text-retro-green border-2 border-retro-green"
+            : "bg-retro-green text-black border-2 border-black"
         }
         transition-all duration-100
       `}
-      style={{
-        clipPath: buttonHovered
-          ? "polygon(0% 10%, 5% 0%, 95% 0%, 100% 10%, 100% 90%, 95% 100%, 5% 100%, 0% 90%)"
-          : "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-      }}
     >
       <div className="flex items-center justify-center">
         <Wallet
           className={`mr-2 h-4 w-4 ${
-            buttonHovered ? "text-black" : "text-retro-green"
+            buttonHovered ? "text-retro-green" : "text-black"
           }`}
         />
-        <span className={`${buttonHovered ? "animate-pulse" : ""}`}>
-          {isConnected ? "DASHBOARD" : "CONNECT"}
-        </span>
+        <span>{isConnected ? "DASHBOARD" : "CONNECT"}</span>
       </div>
-      {buttonHovered && (
-        <div
-          className="absolute -inset-[1px] border border-retro-green opacity-50 animate-pulse"
-          style={{
-            clipPath:
-              "polygon(0% 10%, 5% 0%, 95% 0%, 100% 10%, 100% 90%, 95% 100%, 5% 100%, 0% 90%)",
-          }}
-        />
+      {!buttonHovered && (
+        <div className="absolute -inset-[1px] border border-retro-green opacity-50 rounded-md" />
       )}
     </button>
   );
@@ -207,27 +194,10 @@ const MatrixRainbowButton = () => {
                   <button
                     onClick={openConnectModal}
                     type="button"
-                    className={`
-                      font-pixel text-xs px-4 py-2 relative
-                      bg-black text-retro-green border-2 border-retro-green
-                      shadow-[2px_2px_0px_#000]
-                      hover:bg-retro-green hover:text-black hover:border-black
-                      transition-all duration-100
-                    `}
-                    style={{
-                      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-                    }}
-                    onMouseOver={(e) => {
-                      e.currentTarget.style.clipPath =
-                        "polygon(0% 10%, 5% 0%, 95% 0%, 100% 10%, 100% 90%, 95% 100%, 5% 100%, 0% 90%)";
-                    }}
-                    onMouseOut={(e) => {
-                      e.currentTarget.style.clipPath =
-                        "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)";
-                    }}
+                    className="font-pixel text-sm px-4 py-2 bg-retro-green text-black border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-black hover:text-retro-green hover:border-retro-green transition-colors duration-100 rounded-md"
                   >
                     <div className="flex items-center justify-center">
-                      <Wallet className="mr-2 h-4 w-4" />
+                      <Wallet className="mr-2 h-4 w-4 text-black" />
                       <span>CONNECT</span>
                     </div>
                   </button>
@@ -239,7 +209,7 @@ const MatrixRainbowButton = () => {
                   <button
                     onClick={openChainModal}
                     type="button"
-                    className="font-pixel text-xs px-4 py-2 bg-red-600 text-white border-2 border-black shadow-[2px_2px_0px_#000]"
+                    className="font-pixel text-sm px-4 py-2 bg-red-600 text-white border-2 border-black shadow-[2px_2px_0px_#000]"
                   >
                     Wrong Network
                   </button>
@@ -247,67 +217,59 @@ const MatrixRainbowButton = () => {
               }
 
               return (
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={openChainModal}
-                    type="button"
-                    className="font-pixel text-xs px-3 py-1 bg-black text-retro-green border-2 border-retro-green shadow-[2px_2px_0px_#000] hover:bg-retro-green hover:text-black hover:border-black transition-all duration-100"
-                    style={{
-                      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-                    }}
-                    onMouseOver={(e) => {
-                      e.currentTarget.style.clipPath =
-                        "polygon(0% 10%, 5% 0%, 95% 0%, 100% 10%, 100% 90%, 95% 100%, 5% 100%, 0% 90%)";
-                    }}
-                    onMouseOut={(e) => {
-                      e.currentTarget.style.clipPath =
-                        "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)";
-                    }}
-                  >
-                    {chain.hasIcon && (
-                      <div
-                        style={{
-                          background: chain.iconBackground,
-                          width: 16,
-                          height: 16,
-                          borderRadius: 999,
-                          overflow: "hidden",
-                          marginRight: 4,
-                        }}
-                      >
-                        {chain.iconUrl && (
-                          <img
-                            alt={chain.name ?? "Chain icon"}
-                            src={chain.iconUrl}
-                            style={{ width: 16, height: 16 }}
-                          />
-                        )}
-                      </div>
-                    )}
-                    {chain.name}
-                  </button>
-
+                <div className="flex items-center">
                   <button
                     onClick={openAccountModal}
                     type="button"
-                    className="font-pixel text-xs px-3 py-1 bg-black text-retro-green border-2 border-retro-green shadow-[2px_2px_0px_#000] hover:bg-retro-green hover:text-black hover:border-black transition-all duration-100"
-                    style={{
-                      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-                    }}
+                    className="group font-pixel text-sm px-4 py-2 bg-retro-green text-black border-2 border-black shadow-[2px_2px_0px_#000] hover:bg-black hover:text-retro-green hover:border-retro-green transition-colors duration-100 relative rounded-md"
                     onMouseOver={(e) => {
-                      e.currentTarget.style.clipPath =
-                        "polygon(0% 10%, 5% 0%, 95% 0%, 100% 10%, 100% 90%, 95% 100%, 5% 100%, 0% 90%)";
+                      e.currentTarget.style.clipPath = "none";
                     }}
                     onMouseOut={(e) => {
-                      e.currentTarget.style.clipPath =
-                        "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)";
+                      e.currentTarget.style.clipPath = "none";
                     }}
                   >
                     <div className="flex items-center">
-                      {account.displayBalance ? (
-                        <span className="mr-1">{account.displayBalance}</span>
-                      ) : null}
-                      <span className="font-pixel">{account.displayName}</span>
+                      <div
+                        className="flex items-center mr-3 pr-3 border-r border-black/30 group-hover:border-retro-green/30 cursor-pointer"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openChainModal();
+                        }}
+                      >
+                        {chain.hasIcon && (
+                          <div
+                            style={{
+                              background: chain.iconBackground,
+                              width: 14,
+                              height: 14,
+                              borderRadius: 999,
+                              overflow: "hidden",
+                              marginRight: 4,
+                            }}
+                          >
+                            {chain.iconUrl && (
+                              <img
+                                alt={chain.name ?? "Chain icon"}
+                                src={chain.iconUrl}
+                                style={{ width: 14, height: 14 }}
+                              />
+                            )}
+                          </div>
+                        )}
+                        <span className="text-xs text-black group-hover:text-retro-green">
+                          {chain.name ? chain.name.split(" ")[0] : "Network"}
+                        </span>
+                      </div>
+
+                      <Wallet className="mr-2 h-4 w-4 text-black group-hover:text-retro-green" />
+                      <span
+                        className="font-mono text-lg group-hover:text-retro-green"
+                        style={{ color: "black" }}
+                      >
+                        {account.displayName.slice(0, 6)}...
+                        {account.displayName.slice(-4)}
+                      </span>
                     </div>
                   </button>
                 </div>
@@ -328,6 +290,9 @@ export function SiteHeader() {
   const scramblerRef = useRef<TextScramble | null>(null);
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Check if we're on the landing page
+  const isLandingPage = pathname === "/";
 
   // Use wagmi account hook
   const { address, isConnected } = useAccount();
@@ -440,7 +405,8 @@ export function SiteHeader() {
 
           {/* Connect Button and Mobile Menu Toggle - aligned to the right edge of the screen */}
           <div className="flex-shrink-0 flex items-center space-x-4">
-            <MatrixRainbowButton />
+            {/* Only show connect button if not on landing page */}
+            {!isLandingPage && <MatrixRainbowButton />}
 
             {/* Mobile Menu Toggle */}
             <button
@@ -468,7 +434,7 @@ export function SiteHeader() {
                   className={`text-sm transition-colors ${
                     pathname === item.href
                       ? "text-white font-medium"
-                      : "text-white/80 hover:text-white hover:glow"
+                      : "text-white/80 hover:text-white"
                   }`}
                 >
                   {item.label}

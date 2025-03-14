@@ -434,13 +434,10 @@ export default function TokensPage() {
             <div>
               <h1 className="text-4xl font-bold mb-2">
                 My{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-[#00ff00] to-emerald-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-500">
                   Tokens
                 </span>
               </h1>
-              <p className="text-lg text-muted-foreground">
-                Manage and monitor your token portfolio
-              </p>
             </div>
             <div className="flex items-center gap-3">
               {/* Create Token button removed */}

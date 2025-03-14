@@ -420,7 +420,6 @@ export default function MarketplacePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] =
     useState<FilterOption["id"]>("latest");
-  const [selectedChain, setSelectedChain] = useState<Chain | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [realTokens, setRealTokens] = useState<ExtendedMemeToken[]>([]);
@@ -571,9 +570,8 @@ export default function MarketplacePage() {
   const filteredTokens = useMemo(() => {
     let filtered = allTokens.filter(
       (token) =>
-        (token.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          token.symbol.toLowerCase().includes(searchTerm.toLowerCase())) &&
-        (!selectedChain || token.chain === selectedChain.id)
+        token.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        token.symbol.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     if (activeFilter === "trending") {
@@ -599,7 +597,7 @@ export default function MarketplacePage() {
     }
 
     return filtered;
-  }, [searchTerm, activeFilter, selectedChain, allTokens, storeTokens]);
+  }, [searchTerm, activeFilter, allTokens, storeTokens]);
 
   const totalPages = Math.ceil(filteredTokens.length / itemsPerPage);
   const currentTokens = filteredTokens.slice(
@@ -624,9 +622,6 @@ export default function MarketplacePage() {
                   Marketplace
                 </span>
               </h1>
-              <p className="mt-2 text-muted-foreground">
-                Discover and invest in the latest meme tokens
-              </p>
             </div>
             <div className="flex items-center gap-2">
               <div className="relative">
@@ -653,9 +648,9 @@ export default function MarketplacePage() {
               <MarketFilters
                 chains={chains}
                 filterOptions={filterOptions}
-                selectedChain={selectedChain}
+                selectedChain={null}
                 activeFilter={activeFilter}
-                onChainSelect={setSelectedChain}
+                onChainSelect={() => {}}
                 onFilterSelect={setActiveFilter}
               />
             </div>

@@ -429,9 +429,6 @@ export default function TokensPage() {
                       Tokens
                     </span>
                   </h1>
-                  <p className="text-lg text-muted-foreground">
-                    Manage and monitor your token portfolio
-                  </p>
                 </div>
                 <div className="flex items-center gap-3">
                   <Link href="/launch">

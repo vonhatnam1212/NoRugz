@@ -24,9 +24,9 @@ import { toast } from "sonner";
 import { useWallet } from "@/app/providers/WalletProvider";
 
 export function ProfileSettings() {
-  const [displayName, setDisplayName] = useState("Crypto Ninja");
-  const [username, setUsername] = useState("@cryptoninja");
-  const [email, setEmail] = useState("crypto@ninja.com");
+  const [displayName, setDisplayName] = useState("Alexander the Great");
+  const [username, setUsername] = useState("@zoro");
+  const [email, setEmail] = useState("alexander@thegreat.com");
   const [avatarUrl, setAvatarUrl] = useState("/placeholder.svg");
   const [walletAddress, setWalletAddress] = useState("0x1234...5678");
   const [showSavedMessage, setShowSavedMessage] = useState(false);
@@ -183,60 +183,67 @@ export function ProfileSettings() {
       )}
 
       {/* Basic Info */}
-      <Card className="border-white/10 bg-black/60 backdrop-blur-xl">
-        <CardHeader>
-          <CardTitle>Profile Information</CardTitle>
-          <CardDescription>
-            Manage your account details and wallet connections
-          </CardDescription>
+      <Card className="border-white/10 bg-black/30 backdrop-blur-xl">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-xl flex items-center gap-2">
+            <ImageIcon className="h-5 w-5 text-retro-green" />
+            Profile Information
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="flex items-start gap-6">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
             <div className="relative">
               <Avatar
-                className="h-24 w-24 cursor-pointer"
+                className="h-24 w-24 cursor-pointer border-2 border-retro-green/30 hover:border-retro-green transition-colors"
                 onClick={handleAvatarClick}
               >
                 <AvatarImage src={avatarUrl} />
-                <AvatarFallback>
+                <AvatarFallback className="bg-black text-retro-green">
                   {displayName.substring(0, 2).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
               <Button
                 size="icon"
                 variant="outline"
-                className="absolute -bottom-2 -right-2"
+                className="absolute -bottom-2 -right-2 bg-black border-retro-green text-retro-green hover:bg-retro-green hover:text-black"
                 onClick={handleAvatarClick}
               >
                 <ImageIcon className="h-4 w-4" />
               </Button>
             </div>
-            <div className="flex-1 space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+            <div className="flex-1 space-y-4 w-full">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Display Name</Label>
+                  <Label className="text-sm text-muted-foreground">
+                    Display Name
+                  </Label>
                   <Input
                     placeholder="Enter your name"
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
+                    className="bg-black/50 border-white/20 focus:border-retro-green"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Username</Label>
+                  <Label className="text-sm text-muted-foreground">
+                    Username
+                  </Label>
                   <Input
                     placeholder="Choose a username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    className="bg-black/50 border-white/20 focus:border-retro-green"
                   />
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Email</Label>
+                <Label className="text-sm text-muted-foreground">Email</Label>
                 <Input
                   type="email"
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className="bg-black/50 border-white/20 focus:border-retro-green"
                 />
               </div>
             </div>
@@ -245,57 +252,58 @@ export function ProfileSettings() {
       </Card>
 
       {/* Wallet Connections */}
-      <Card className="border-white/10 bg-black/60 backdrop-blur-xl">
-        <CardHeader>
-          <CardTitle>Connected Wallets</CardTitle>
-          <CardDescription>Manage your Web3 wallet connections</CardDescription>
+      <Card className="border-white/10 bg-black/30 backdrop-blur-xl">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-xl flex items-center gap-2">
+            <Wallet className="h-5 w-5 text-retro-green" />
+            Connected Wallets
+          </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="space-y-4">
-            {/* MetaMask */}
-            <div className="flex items-center justify-between p-4 rounded-lg bg-black/40 border border-green-500/20">
-              <div className="flex items-center gap-4">
-                <Wallet className="h-5 w-5 text-orange-500" />
-                <div>
-                  <p className="font-medium">MetaMask</p>
-                  <p className="text-sm text-muted-foreground">
-                    {walletAddress}
-                  </p>
+        <CardContent className="space-y-4">
+          <div className="p-4 bg-black/50 rounded-lg border border-white/10">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-sm text-muted-foreground mb-1">
+                  Primary Wallet
                 </div>
-                <Badge
-                  variant="outline"
-                  className="bg-green-500/10 text-green-500 border-green-500/20"
-                >
-                  <Check className="mr-1 h-3 w-3" />
-                  Primary
-                </Badge>
+                <div className="font-mono text-sm">{walletAddress}</div>
               </div>
-              <Button variant="outline" onClick={connectMetaMask}>
-                {walletAddress === "0x1234...5678" ? "Connect" : "Disconnect"}
-              </Button>
-            </div>
-
-            {/* Add New Wallet */}
-            <div className="flex items-center justify-between p-4 rounded-lg border border-dashed border-white/20">
-              <div className="flex items-center gap-4">
-                <Wallet className="h-5 w-5 text-muted-foreground" />
-                <div>
-                  <p className="font-medium">Connect New Wallet</p>
-                  <p className="text-sm text-muted-foreground">
-                    Add another wallet to your account
-                  </p>
-                </div>
+              <div className="flex items-center gap-2">
+                {isConnected ? (
+                  <Badge className="bg-green-500/20 text-green-500 hover:bg-green-500/30">
+                    <Check className="h-3 w-3 mr-1" />
+                    Connected
+                  </Badge>
+                ) : (
+                  <Badge
+                    variant="outline"
+                    className="bg-yellow-500/20 text-yellow-500 hover:bg-yellow-500/30"
+                  >
+                    <AlertTriangle className="h-3 w-3 mr-1" />
+                    Not Connected
+                  </Badge>
+                )}
               </div>
-              <Button onClick={connectNewWallet}>Connect</Button>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
-            <AlertTriangle className="h-5 w-5 text-yellow-500" />
-            <p className="text-sm text-yellow-500">
-              For enhanced security, enable 2FA in the Security tab when
-              connecting multiple wallets.
-            </p>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Button
+              onClick={connectMetaMask}
+              className="flex-1 bg-retro-green text-black hover:bg-retro-green/80"
+            >
+              <Wallet className="mr-2 h-4 w-4" />
+              {isConnected ? "Disconnect Wallet" : "Connect Wallet"}
+            </Button>
+            {isConnected && (
+              <Button
+                onClick={connectNewWallet}
+                variant="outline"
+                className="flex-1 border-retro-green text-retro-green hover:bg-retro-green hover:text-black"
+              >
+                Connect Different Wallet
+              </Button>
+            )}
           </div>
         </CardContent>
       </Card>

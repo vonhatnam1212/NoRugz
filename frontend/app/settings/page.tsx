@@ -31,88 +31,52 @@ export default function SettingsPage() {
 
   return (
     <AppLayout showFooter={false}>
-      <div className="min-h-screen bg-gradient-to-b ">
-        <div className="container max-w-7xl mx-auto px-4 py-8 relative z-10">
+      <div className="min-h-screen bg-gradient-to-b">
+        <div className="container max-w-5xl mx-auto px-4 py-8 relative z-10">
           {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-12 pb-6 border-b border-white/10"
-          >
-            <div className="flex flex-col gap-4">
-              <Badge
-                variant="outline"
-                className="w-fit bg-blue-500/10 text-blue-500 border-blue-500/20 px-3 py-1"
-              >
-                Settings & Preferences
-              </Badge>
-              <h1 className="text-4xl font-bold">
-                Account{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-500">
-                  Settings
-                </span>
-              </h1>
-            </div>
-          </motion.div>
+          <div className="flex flex-col gap-4 pt-12 pb-8 text-center">
+            <h1 className="text-4xl font-bold">
+              Account{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-500">
+                Settings
+              </span>
+            </h1>
+          </div>
 
           {/* Settings Tabs */}
-          <Tabs defaultValue="profile" className="space-y-8">
-            <div className="overflow-x-auto pb-2">
-              <TabsList className="bg-white/5 p-1 rounded-lg inline-flex min-w-full lg:grid lg:grid-cols-4 gap-4">
+          <Tabs defaultValue="profile" className="space-y-10">
+            <div className="flex justify-center">
+              <TabsList className="bg-white/5 p-1 rounded-lg grid grid-cols-2 w-full max-w-md">
                 <TabsTrigger
                   value="profile"
-                  className="data-[state=active]:bg-black/50 gap-2 whitespace-nowrap"
+                  className="data-[state=active]:bg-black/50 data-[state=active]:text-retro-green gap-2 py-3"
                 >
                   <User className="h-4 w-4" />
                   Profile
                 </TabsTrigger>
                 <TabsTrigger
                   value="wallet"
-                  className="data-[state=active]:bg-black/50 gap-2 whitespace-nowrap"
+                  className="data-[state=active]:bg-black/50 data-[state=active]:text-retro-green gap-2 py-3"
                 >
                   <Wallet className="h-4 w-4" />
                   Wallet
                 </TabsTrigger>
-                <TabsTrigger
-                  value="social"
-                  className="data-[state=active]:bg-black/50 gap-2 whitespace-nowrap"
-                >
-                  <Share2 className="h-4 w-4" />
-                  Social
-                </TabsTrigger>
-                <TabsTrigger
-                  value="preferences"
-                  className="data-[state=active]:bg-black/50 gap-2 whitespace-nowrap"
-                >
-                  <Settings2 className="h-4 w-4" />
-                  Preferences
-                </TabsTrigger>
               </TabsList>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white/5 rounded-xl border border-white/10 p-6 overflow-hidden"
+            <TabsContent
+              value="profile"
+              className="mt-0 bg-black/20 p-6 rounded-lg border border-white/10"
             >
-              <TabsContent value="profile" className="mt-0">
-                <ProfileSettings />
-              </TabsContent>
+              <ProfileSettings />
+            </TabsContent>
 
-              <TabsContent value="wallet" className="mt-0">
-                <WalletSettings />
-              </TabsContent>
-
-              <TabsContent value="social" className="mt-0">
-                <SocialSettings />
-              </TabsContent>
-
-              <TabsContent value="preferences" className="mt-0">
-                <PreferenceSettings />
-              </TabsContent>
-            </motion.div>
+            <TabsContent
+              value="wallet"
+              className="mt-0 bg-black/20 p-6 rounded-lg border border-white/10"
+            >
+              <WalletSettings />
+            </TabsContent>
           </Tabs>
         </div>
       </div>
