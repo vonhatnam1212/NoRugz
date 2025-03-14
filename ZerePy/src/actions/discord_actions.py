@@ -84,3 +84,13 @@ def deploy_token_discord(agent, **kwargs):
         )
         agent.logger.info(f"\n🚀 Posting reply: '{reply_text}'")
     return
+
+
+@register_action("rug-detect")
+def rug_detect(agent, **kwargs):
+    # Pull token holders data
+    # Pull transactions data
+    # Pull token analytics
+
+    data = {}
+    # system prompt
