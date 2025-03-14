@@ -4,6 +4,8 @@ import os
 from dotenv import load_dotenv
 import json
 import requests
+from moralis import evm_api
+
 load_dotenv()
 
 DEPLOY_TOKEN_URL = os.getenv("DEPLOY_TOKEN_URL")
@@ -190,13 +192,52 @@ def deploy_token_discord(agent, **kwargs):
 
 
 @register_action("rug-detect")
-def rug_detect(agent, **kwargs):
-    # Pull token holders data
-    # Pull transactions data
-    # Pull token analytics
+def rug_detect(agent, address, **kwargs):
+    def get_token_owners():
+        result = evm_api.token.get_token_owners(
+          api_key=os.getenv("MORALIS_API_KEY"),
+          params={
+            "chain": "fantom",
+            "order": "DESC",
+            "token_address": address
+          },
+        )
+        data = result["result"][:10]
+        return map(lambda x: {"address": x["owner_address"], "balance": x["balance_formatted"], "percentage_owned_to_total_supply": x["percentage_relative_to_total_supply"]}, data)
 
-    data = {}
+    def get_token_transfers():
+        result = evm_api.token.get_token_transfers(
+          api_key=os.getenv("MORALIS_API_KEY"),
+          params={
+            "chain": "fantom",
+            "order": "DESC",
+            "address": address
+          },
+        )
+        data = result["result"][:10]
+        return map(lambda x: {"from": x["from_address"], "to": x["to_address"], "value": x["value_decimal"], "block_timestamp": x["block_timestamp"]}, data)
+
+    def get_token_metadata():
+        params = {
+            "chain": "fantom",
+            "addresses": [address]
+        }
+
+        result = evm_api.token.get_token_metadata(
+        api_key=os.getenv("MORALIS_API_KEY"),
+        params=params,
+        )
+        return result[0]
+
+    data = {
+        "holders": list(get_token_owners()),
+        "transactions": list(get_token_transfers()),
+        "token_info": get_token_metadata()
+    }
+
+    return data
     # system prompt
+
 
     messages = read_mentioned_messages(agent, **kwargs)
 
