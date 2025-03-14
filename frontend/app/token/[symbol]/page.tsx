@@ -169,7 +169,7 @@ export default function TokenDetailPage() {
           marketCap: marketData.marketCap + " S",
           priceChange: Math.random() * 20 - 10, // Random price change for now
           fundingRaised: tokenData.raised.toString(),
-          chain: "ethereum",
+          chain: "Sonic",
           volume24h: marketData.volume24h + "$",
           holders: marketData.holders,
           launchDate: new Date().toISOString().split("T")[0],
@@ -499,21 +499,21 @@ export default function TokenDetailPage() {
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-4">
                         <h1 className="text-3xl font-bold">{token?.name}</h1>
-                        <Badge className="bg-gradient-to-r from-green-400 to-[#00ff00] text-white font-semibold">
+                        <Badge className="bg-gradient-to-r from-green-400 to-[#00ff00] text-black font-semibold">
                           ${token?.symbol}
                         </Badge>
                       </div>
 
-                      <p className="text-muted-foreground mb-6 line-clamp-3">
+                      <p className="text-muted-foreground mb-6 line-clamp-3 text-base leading-relaxed font-medium text-gray-200">
                         {token?.description}
                       </p>
 
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         <div className="bg-black/20 rounded-lg p-4">
-                          <div className="text-muted-foreground text-sm mb-1">
+                          <div className="text-muted-foreground text-sm mb-1 font-medium">
                             Price
                           </div>
-                          <div className="text-xl font-semibold">
+                          <div className="text-lg font-semibold truncate text-white">
                             {token?.price === "0" ? "0" : `$${token?.price}`}
                           </div>
                           <div
@@ -534,28 +534,19 @@ export default function TokenDetailPage() {
                         </div>
 
                         <div className="bg-black/20 rounded-lg p-4">
-                          <div className="text-muted-foreground text-sm mb-1">
+                          <div className="text-muted-foreground text-sm mb-1 font-medium">
                             Market Cap
                           </div>
-                          <div className="text-xl font-semibold">
+                          <div className="text-lg font-semibold truncate text-white">
                             {token?.marketCap}
                           </div>
                         </div>
 
-                        {/* <div className="bg-black/20 rounded-lg p-4">
-                          <div className="text-muted-foreground text-sm mb-1">
-                            Volume 24h
-                          </div>
-                          <div className="text-xl font-semibold">
-                            {token?.volume24h}
-                          </div>
-                        </div> */}
-
                         <div className="bg-black/20 rounded-lg p-4">
-                          <div className="text-muted-foreground text-sm mb-1">
+                          <div className="text-muted-foreground text-sm mb-1 font-medium">
                             Holders
                           </div>
-                          <div className="text-xl font-semibold">
+                          <div className="text-lg font-semibold truncate text-white">
                             {token?.holders}
                           </div>
                         </div>
@@ -568,11 +559,13 @@ export default function TokenDetailPage() {
               {/* Description Card */}
               <Card className="border-white/10 bg-black/50 backdrop-blur-xl">
                 <CardHeader>
-                  <CardTitle>About {token?.name}</CardTitle>
+                  <CardTitle className="text-xl text-green-400">
+                    About {token?.name}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <p className="text-muted-foreground">
+                    <p className="text-white text-base leading-relaxed font-medium">
                       {token?.description ||
                         "No description available for this token."}
                     </p>
@@ -584,7 +577,9 @@ export default function TokenDetailPage() {
               <Card className="border-white/10 bg-black/50 backdrop-blur-xl">
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
-                    <CardTitle>Price History</CardTitle>
+                    <CardTitle className="text-xl text-green-400">
+                      Price History
+                    </CardTitle>
                     <div className="flex items-center gap-2">
                       <Button
                         variant="outline"
@@ -596,7 +591,7 @@ export default function TokenDetailPage() {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="h-8 text-xs bg-blue-500/10 text-blue-500 border-blue-500/20"
+                        className="h-8 text-xs bg-white-500/10 text-white border-white"
                       >
                         1W
                       </Button>
@@ -620,7 +615,7 @@ export default function TokenDetailPage() {
                 <CardContent>
                   <div className="aspect-[16/9] bg-black/20 rounded-lg flex flex-col items-center justify-center p-6">
                     <BarChart3 className="h-16 w-16 text-white/20 mb-4" />
-                    <p className="text-muted-foreground text-center">
+                    <p className="text-muted-foreground text-white text-center">
                       Price chart data will be available once there is
                       sufficient trading activity.
                     </p>
@@ -667,7 +662,9 @@ export default function TokenDetailPage() {
               {/* Buy Card - Moved to the top of the right column */}
               <Card className="border-white/10 bg-black/50 backdrop-blur-xl">
                 <CardHeader>
-                  <CardTitle>Buy {token?.symbol}</CardTitle>
+                  <CardTitle className="text-xl text-white">
+                    Buy {token?.symbol}
+                  </CardTitle>
                   <CardDescription>
                     Purchase tokens directly with S
                   </CardDescription>
@@ -753,7 +750,7 @@ export default function TokenDetailPage() {
                   )}
 
                   <Button
-                    className="w-full h-12 text-base font-semibold bg-gradient-to-r from-green-400 to-[#00ff00] hover:from-green-500 hover:to-green-600 text-white rounded-lg"
+                    className="w-full h-12 text-base font-semibold bg-gradient-to-r from-green-400 to-[#00ff00] hover:from-green-500 hover:to-green-600 text-black rounded-lg"
                     onClick={handleBuyToken}
                     disabled={
                       isBuying ||
@@ -796,16 +793,18 @@ export default function TokenDetailPage() {
               {/* Token Information Card */}
               <Card className="border-white/10 bg-black/50 backdrop-blur-xl">
                 <CardHeader>
-                  <CardTitle>Token Information</CardTitle>
+                  <CardTitle className="text-xl text-white">
+                    Token Information
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex justify-between py-3 border-b border-white/10">
-                      <span className="text-muted-foreground">
+                      <span className="text-muted-foreground font-medium">
                         Contract Address
                       </span>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-sm">
+                        <span className="font-mono text-sm text-white">
                           {formatAddress(token?.id)}
                         </span>
                         <Button
@@ -820,26 +819,37 @@ export default function TokenDetailPage() {
                     </div>
 
                     <div className="flex justify-between py-3 border-b border-white/10">
-                      <span className="text-muted-foreground">Network</span>
-                      <Badge variant="outline" className="bg-white/5">
+                      <span className="text-muted-foreground font-medium">
+                        Network
+                      </span>
+                      <Badge
+                        variant="outline"
+                        className="bg-purple-500/20 text-purple-300 border-purple-500/30 font-medium px-3"
+                      >
                         {token?.chain}
                       </Badge>
                     </div>
 
                     <div className="flex justify-between py-3 border-b border-white/10">
-                      <span className="text-muted-foreground">Launch Date</span>
-                      <span>{token?.launchDate}</span>
+                      <span className="text-muted-foreground font-medium">
+                        Launch Date
+                      </span>
+                      <span className="text-white">{token?.launchDate}</span>
                     </div>
 
                     <div className="flex justify-between py-3 border-b border-white/10">
-                      <span className="text-muted-foreground">Creator</span>
-                      <span className="font-mono text-sm">
+                      <span className="text-muted-foreground font-medium">
+                        Creator
+                      </span>
+                      <span className="font-mono text-base text-white">
                         {formatAddress(token?.creator)}
                       </span>
                     </div>
 
                     <div className="flex justify-between py-3 border-b border-white/10">
-                      <span className="text-muted-foreground">Status</span>
+                      <span className="text-muted-foreground font-medium">
+                        Status
+                      </span>
                       <Badge
                         className={`${
                           isTokenClosed
@@ -852,7 +862,7 @@ export default function TokenDetailPage() {
                     </div>
 
                     <div className="flex justify-between py-3">
-                      <span className="text-muted-foreground">
+                      <span className="text-muted-foreground font-medium">
                         Social Links
                       </span>
                       <div className="flex items-center gap-2">
@@ -874,7 +884,9 @@ export default function TokenDetailPage() {
               {/* Recent Transactions */}
               <Card className="border-white/10 bg-black/50 backdrop-blur-xl">
                 <CardHeader>
-                  <CardTitle>Recent Transactions</CardTitle>
+                  <CardTitle className="text-xl text-white">
+                    Recent Transactions
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
@@ -897,7 +909,9 @@ export default function TokenDetailPage() {
               {/* Market Activity */}
               <Card className="border-white/10 bg-black/50 backdrop-blur-xl">
                 <CardHeader>
-                  <CardTitle>Market Activity</CardTitle>
+                  <CardTitle className="text-xl text-white">
+                    Market Activity
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
