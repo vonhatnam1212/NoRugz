@@ -334,7 +334,7 @@ const TokenCard = ({
                   </Link>
                   <Badge
                     variant="secondary"
-                    className="h-5 px-1.5 text-[10px] font-mono"
+                    className="h-5 px-1.5 text-lg font-mono"
                   >
                     ${token.symbol}
                   </Badge>
@@ -343,19 +343,19 @@ const TokenCard = ({
               <div className="flex items-center gap-1.5">
                 <Badge
                   variant="outline"
-                  className="h-5 px-1.5 text-[10px] font-mono bg-white/5 border-white/10"
+                  className="h-5 px-1.5 text-lg font-mono bg-white/5 border-white/10"
                 >
                   Rank #{index + 1}
                 </Badge>
                 {index < 3 && (
-                  <Badge className="h-5 px-1.5 text-[10px] bg-yellow-500/10 text-yellow-500 border-yellow-500/20">
+                  <Badge className="h-5 px-1.5 text-base bg-yellow-500/10 text-yellow-500 border-yellow-500/20">
                     Trending
                   </Badge>
                 )}
               </div>
             </div>
             <div className="text-right">
-              <div className="font-mono text-sm font-medium text-white">
+              <div className="font-mono text-lg font-medium text-white">
                 ${token.price}
               </div>
               <div className="text-[10px] text-gray-500">
@@ -372,13 +372,13 @@ const TokenCard = ({
           <div className="grid grid-cols-2 gap-4 py-3 mt-3 border-y border-white/10">
             <div>
               <div className="text-[10px] text-gray-500 mb-0.5">Volume 24h</div>
-              <div className="font-mono text-sm font-medium text-white">
+              <div className="font-mono text-lg font-medium text-white">
                 {token.volume24h}
               </div>
             </div>
             <div>
               <div className="text-[10px] text-gray-500 mb-0.5">Holders</div>
-              <div className="font-mono text-sm font-medium text-white">
+              <div className="font-mono text-lg font-medium text-white">
                 {token.holders}
               </div>
             </div>
