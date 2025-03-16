@@ -155,7 +155,7 @@ def deploy_token(agent, **kwargs):
     print_h_bar()
     url = f"{DEPLOY_TOKEN_URL}api/memecoin/create-for-user"
     tweets = get_mentioned_tweets(agent, **kwargs)
-
+    agent.logger.info(tweets)
     responses = []
     for tweet in tweets:
         data = {
