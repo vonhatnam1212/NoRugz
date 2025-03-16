@@ -41,6 +41,18 @@ We’ve reimplemented ZerePy’s LLM prompting to:
 - Adhere to **OpenAI's chat completion and structured output generation standards**.  
 - Ensure compatibility with a wide range of LLMs, enabling future experimentation with different models.  
 
+## Anti-Rug Protection: AI-Powered Security for Safer Investments  
+
+At **NoRugz**, we leverage a combination of **Machine Learning (ML) models** and **Large Language Models (LLMs)** to analyze smart contracts and detect potential rug-pull risks in real time. Our dual-layer security approach ensures a safer memecoin ecosystem by providing:  
+
+- **Smart Contract Risk Analysis** – Our ML models scan contract bytecode and transaction history, identifying suspicious patterns such as hidden minting functions, high tax fees, ownership renouncement status, and potential honeypots.  
+- **LLM-Based Code Review** – Our AI agent, powered by state-of-the-art LLMs, performs an in-depth semantic analysis of Solidity contracts, identifying deceptive practices like proxy contract exploits, unrestricted privilege functions, and backdoor vulnerabilities.  
+- **On-Chain & Off-Chain Behavior Analysis** – We aggregate and analyze blockchain activity alongside social sentiment to detect anomalies, such as sudden liquidity withdrawals, token dumps by insiders, or misleading promotional strategies.  
+
+By combining **ML’s pattern recognition** with **LLM’s contextual understanding**, NoRugz delivers **accurate, real-time insights** into token security, empowering users to make **informed** investment decisions.  
+
+Just mention our bot on **Discord** with a token contract address, and our AI will handle the rest! 🚀  
+
 ---
 
 ## 🎯 Why Choose NoRugz?
