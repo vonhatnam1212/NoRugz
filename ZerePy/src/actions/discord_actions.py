@@ -192,8 +192,8 @@ def deploy_token_discord(agent, **kwargs):
 
 
 @register_action("rug-detect")
-def rug_detect(agent, address, **kwargs):
-    def get_token_owners():
+def rug_detect(agent, **kwargs):
+    def get_token_owners(address):
         result = evm_api.token.get_token_owners(
           api_key=os.getenv("MORALIS_API_KEY"),
           params={
@@ -205,7 +205,7 @@ def rug_detect(agent, address, **kwargs):
         data = result["result"][:10]
         return map(lambda x: {"address": x["owner_address"], "balance": x["balance_formatted"], "percentage_owned_to_total_supply": x["percentage_relative_to_total_supply"]}, data)
 
-    def get_token_transfers():
+    def get_token_transfers(address):
         result = evm_api.token.get_token_transfers(
           api_key=os.getenv("MORALIS_API_KEY"),
           params={
@@ -217,7 +217,7 @@ def rug_detect(agent, address, **kwargs):
         data = result["result"][:10]
         return map(lambda x: {"from": x["from_address"], "to": x["to_address"], "value": x["value_decimal"], "block_timestamp": x["block_timestamp"]}, data)
 
-    def get_token_metadata():
+    def get_token_metadata(address):
         params = {
             "chain": "fantom",
             "addresses": [address]
@@ -229,13 +229,6 @@ def rug_detect(agent, address, **kwargs):
         )
         return result[0]
 
-    data = {
-        "holders": list(get_token_owners()),
-        "transactions": list(get_token_transfers()),
-        "token_info": get_token_metadata()
-    }
-
-    return data
     # system prompt
 
 
@@ -245,6 +238,12 @@ def rug_detect(agent, address, **kwargs):
     for message in messages:
         agent.logger.info(message)
         if "check anti-rug" in message.get('message'):
+            address = message.get('message').split(" ")[-1]
+            data = {
+                "holders": list(get_token_owners(address)),
+                "transactions": list(get_token_transfers(address)),
+                "token_info": get_token_metadata(address)
+            }
             agent.logger.info(USER_PROMPT.format(data=json.dumps(data, indent=2)))
             llm_analysis = agent.prompt_llm(prompt=USER_PROMPT.format(data=json.dumps(data, indent=2)), system_prompt=SYSTEM_PROMPT)
             agent.logger.info(f"\n📝 Generated response: {llm_analysis}")
