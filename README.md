@@ -64,3 +64,126 @@ Just mention our bot on **Discord** with a token contract address, and our AI wi
 ---
 
 Join **NoRugz** today and bring your memecoin dreams to life—**no rugs, just gains!** 🚀  
+
+# 🛠️ How to Run NoRugz
+
+NoRugz consists of a Next.js frontend and a ZerePy backend (Python). Follow these steps to set up and run the project locally:
+
+## 1️⃣ Clone the Repository
+
+```sh
+git clone https://github.com/vonhatnam1212/NoRugz.git
+cd NoRugz
+```
+
+## 2️⃣ Set Up the Backend (ZerePy)
+
+### Install Dependencies
+
+```sh
+cd ZerePy
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+pip install poetry
+poetry install --no-root
+```
+
+### Configure Environment Variables
+
+Create a `.env` file in the backend directory using the provided `.env.sample` file:
+
+```sh
+cp .env.sample .env
+```
+
+Edit `.env` with your actual API keys and configuration:
+
+```env
+OPENAI_API_KEY=your_openai_api_key
+DISCORD_BOT_TOKEN=your_discord_bot_token
+TWITTER_API_KEY=your_twitter_api_key
+TWITTER_API_SECRET=your_twitter_api_secret
+```
+
+### Start the Backend Server
+
+```sh
+python main.py
+```
+
+# CLI Commands Help
+
+Use the `help` command in the CLI to see all available commands. Below is a list of key commands and their descriptions.
+
+## Agent Management
+
+- **`list-agents`**  
+  Show available agents.
+
+- **`load-agent <agent_name>`**  
+  Load a specific agent.
+
+- **`agent-loop`**  
+  Start autonomous behavior of the loaded agent.
+
+- **`agent-action <action>`**  
+  Execute a single action using the agent.
+
+## Connection Management
+
+- **`list-connections`**  
+  Show available connections.
+
+- **`configure-connection <connection_name>`**  
+  Set up a new connection.
+
+## Actions
+
+- **`list-actions <connection_name>`**  
+  Show available actions for a specific connection.
+
+## Interaction
+
+- **`chat`**  
+  Start an interactive chat with the loaded agent.
+
+- **`clear`**  
+  Clear the terminal screen.
+
+## 3️⃣ Set Up the Frontend (Next.js)
+
+### Install Dependencies
+
+```sh
+cd ../frontend
+npm install
+```
+
+### Configure Environment Variables
+
+Create a `.env.local` file in the frontend directory using `.env.sample`:
+
+```sh
+cp .env.sample .env.local
+```
+
+Edit `.env.local`:
+
+```env
+NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+```
+
+### Start the Frontend Server
+
+```sh
+npm run dev
+```
+
+## 4️⃣ Access the Application
+
+Once both servers are running:
+
+- **Frontend:** Open [http://localhost:3000](http://localhost:3000) in your browser.
+- **Backend API:** Access API docs at [http://localhost:8000/docs](http://localhost:8000/docs) if Swagger is enabled.
+
+
