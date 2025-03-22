@@ -187,3 +187,4 @@ Once both servers are running:
 - **Backend API:** Access API docs at [http://localhost:8000/docs](http://localhost:8000/docs) if Swagger is enabled.
 
 
+Link discord: https://discord.gg/SdBXscHm
